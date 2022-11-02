@@ -27,7 +27,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func artist(w http.ResponseWriter, r *http.Request) {
+func Artist(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodGet {
 		// errors.ParseErrors(w, http.StatusMethodNotAllowed)
 		return
