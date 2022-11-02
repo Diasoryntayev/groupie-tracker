@@ -26,3 +26,22 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 }
+
+func artist(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodGet {
+		// errors.ParseErrors(w, http.StatusMethodNotAllowed)
+		return
+	}
+
+	// detailArtist := grabjson.GetArtistById(id)
+	html, err := template.ParseFiles("./ui/html/details.html")
+	if err != nil {
+		// errors.ParseErrors(w, http.StatusInternalServerError)
+		return
+	}
+	err = html.Execute(w, nil)
+	if err != nil {
+		// errors.ParseErrors(w, http.StatusInternalServerError)
+		return
+	}
+}
