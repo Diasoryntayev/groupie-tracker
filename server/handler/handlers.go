@@ -7,41 +7,32 @@ import (
 
 func Home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
-		// errors.ParseErrors(w, http.StatusNotFound)
-		return
-	}
-	if r.Method != http.MethodGet {
-		// errors.ParseErrors(w, http.StatusMethodNotAllowed)
+		Err(w, http.StatusNotFound)
 		return
 	}
 	// artists := grabjson.GetJsonData()
 	html, err := template.ParseFiles("./ui/html/index.html")
 	if err != nil {
-		// errors.ParseErrors(w, http.StatusInternalServerError)
+		Err(w, http.StatusInternalServerError)
 		return
 	}
-	err = html.Execute(w, nil)
-	if err != nil {
-		// errors.ParseErrors(w, http.StatusInternalServerError)
+	if err = html.Execute(w, nil); err != nil {
+		Err(w, http.StatusInternalServerError)
 		return
 	}
 }
 
 func Artist(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodGet {
-		// errors.ParseErrors(w, http.StatusMethodNotAllowed)
-		return
-	}
 
 	// detailArtist := grabjson.GetArtistById(id)
+
 	html, err := template.ParseFiles("./ui/html/details.html")
 	if err != nil {
-		// errors.ParseErrors(w, http.StatusInternalServerError)
+		Err(w, http.StatusInternalServerError)
 		return
 	}
-	err = html.Execute(w, nil)
-	if err != nil {
-		// errors.ParseErrors(w, http.StatusInternalServerError)
+	if err = html.Execute(w, nil); err != nil {
+		Err(w, http.StatusInternalServerError)
 		return
 	}
 }
