@@ -44,6 +44,7 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	text := r.FormValue("search")
 	if isTextEmpty(text) {
+		Err(w, http.StatusBadRequest)
 		return
 	}
 
@@ -51,4 +52,11 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		Err(w, http.StatusInternalServerError)
 		return
 	}
+}
+
+func isTextEmpty(s string) bool {
+	if s == "" {
+		return true
+	}
+	return false
 }
