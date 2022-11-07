@@ -1,6 +1,11 @@
 package grabjson
 
-import "groupie-tracker/server/model"
+import (
+	"encoding/json"
+	"groupie-tracker/server/model"
+	"io/ioutil"
+	"net/http"
+)
 
 var (
 	artists          model.AllArtist
@@ -21,4 +26,22 @@ func GetData() (model.AllArtist, error) {
 		artists.Artist[i].DatesLocations = w.DatesLocations
 	}
 	return artists, nil
+}
+
+func getJson(url string, object interface{}) error {
+	resp, err := http.Get(url)
+	if err != nil {
+		return err
+	}
+	defer resp.Body.Close()
+
+	bb, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return err
+	}
+	err = json.Unmarshal(bb, &object)
+	if err != nil {
+		return err
+	}
+	return nil
 }
