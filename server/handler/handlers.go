@@ -51,9 +51,16 @@ func SearchHandler(w http.ResponseWriter, r *http.Request) {
 		Err(w, http.StatusInternalServerError)
 		return
 	}
+
 	text := r.FormValue("search")
 	if isTextEmpty(text) {
 		Err(w, http.StatusBadRequest)
+		return
+	}
+
+	artist, err := grabjson.SearchArtist(text)
+	if err != nil {
+		Err(w, http.StatusInternalServerError)
 		return
 	}
 
