@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"groupie-tracker/server/grabjson"
 	"html/template"
 	"net/http"
 )
@@ -10,13 +11,21 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		Err(w, http.StatusNotFound)
 		return
 	}
-	// artists := grabjson.GetJsonData()
+
 	html, err := template.ParseFiles("./ui/html/index.html")
 	if err != nil {
 		Err(w, http.StatusInternalServerError)
 		return
 	}
-	if err = html.Execute(w, nil); err != nil {
+
+	artists, err := grabjson.GetData()
+	if err != nil {
+		Err(w, http.StatusInternalServerError)
+		return
+	}
+
+	artists.FoundArtist = artists.Artist
+	if err = html.Execute(w, &artists); err != nil {
 		Err(w, http.StatusInternalServerError)
 		return
 	}
