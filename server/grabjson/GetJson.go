@@ -3,7 +3,7 @@ package grabjson
 import (
 	"encoding/json"
 	"groupie-tracker/server/model"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -35,12 +35,11 @@ func getJson(url string, object interface{}) error {
 	}
 	defer resp.Body.Close()
 
-	bb, err := ioutil.ReadAll(resp.Body)
+	bb, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return err
 	}
-	err = json.Unmarshal(bb, &object)
-	if err != nil {
+	if err = json.Unmarshal(bb, &object); err != nil {
 		return err
 	}
 	return nil
