@@ -44,6 +44,7 @@ func Artist(w http.ResponseWriter, r *http.Request) {
 		Err(w, http.StatusInternalServerError)
 		return
 	}
+
 	id, err := strconv.Atoi(r.URL.Query().Get("id"))
 	if err != nil {
 		Err(w, http.StatusNotFound)
@@ -51,11 +52,6 @@ func Artist(w http.ResponseWriter, r *http.Request) {
 	}
 	if id < 1 || id > len(artists.Artist) {
 		Err(w, http.StatusNotFound)
-		return
-	}
-
-	if err != nil {
-		Err(w, http.StatusInternalServerError)
 		return
 	}
 
