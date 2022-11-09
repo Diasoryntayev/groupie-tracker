@@ -50,3 +50,7 @@ func SearchArtist(searchWord string) (*model.AllArtist, error) {
 	allArtists := &model.AllArtist{FoundArtist: result}
 	return allArtists, nil
 }
+
+func myContains(s, sub string) bool {
+	return strings.Contains(strings.ToLower(s), strings.ToLower(sub))
+}
