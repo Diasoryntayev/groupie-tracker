@@ -13,7 +13,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	html, err := template.ParseFiles("./ui/html/index.html")
+	html, err := template.ParseFiles("ui/html/index.html")
 	if err != nil {
 		Err(w, http.StatusInternalServerError)
 		return
@@ -33,7 +33,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func Artist(w http.ResponseWriter, r *http.Request) {
-	html, err := template.ParseFiles("./ui/html/details.html")
+	html, err := template.ParseFiles("ui/html/details.html")
 	if err != nil {
 		Err(w, http.StatusInternalServerError)
 		return
@@ -62,7 +62,7 @@ func Artist(w http.ResponseWriter, r *http.Request) {
 }
 
 func SearchHandler(w http.ResponseWriter, r *http.Request) {
-	html, err := template.ParseFiles("./ui/html/index.html")
+	html, err := template.ParseFiles("ui/html/index.html")
 	if err != nil {
 		Err(w, http.StatusInternalServerError)
 		return
