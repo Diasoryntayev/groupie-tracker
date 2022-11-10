@@ -14,8 +14,51 @@
     <meta name="msapplication-TileColor" content="#603cba">
     <meta name="msapplication-config" content="/static/img/favicon/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
+    <header>Groupie-tracker</header>
+    <div class="search-container">
+        <form action="/searched" method="get" autocomplete="off">
+          <input type="text" placeholder="Search..." name="search" list="search_data" required>
+          <datalist id="search_data">
+            {{range .Artist}}
+            <option value="{{.Name}}">{{.Name}} - Artist/Band</option>
+            <option value="{{.CreationDate}}">{{.CreationDate}} - Creation Date</option>
+            <option value="{{.FirstAlbum}}">{{.FirstAlbum}} - First Album</option>
+              {{range .Members}}
+                <option value="{{.}}">{{.}} - Member</option>
+              {{end}}
+              {{range $city, $dates := .DatesLocations}}
+                <option value="{{$city}}">{{$city}} - Location</option>
+                {{range $dates}}
+                  <option value="{{.}}">{{.}} - Concert Date</option>
+                {{end}}
+              {{end}}
+            {{end}}
+          </datalist>
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+      </div>
+
+      <div class="main-page">
+        {{range .FoundArtist}}
+        <form action="details" class="artists__card">
     
+            <div class="artist">
+                <div class="artist__img">
+                    <img src="{{.Image}}" title="{{.Name}}">
+                </div>
+                <div class="artist__name">
+                    {{.Name}}
+                </div>
+            </div>
+            <div class="btn__box">
+                <button type="submit" name="id" value="{{.ID}}">About artist</button>
+            </div> 
+            
+        </form>
+        {{end}}              
+    </div>
 </body>
 </html>
