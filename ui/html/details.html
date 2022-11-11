@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About (artist name)</title>
+    <title>{{ .Name}}</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/static/img/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="/static/img/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/static/img/favicon/favicon-16x16.png">
@@ -16,6 +16,57 @@
     <meta name="theme-color" content="#ffffff">
 </head>
 <body>
+    <div class="detalis">
+        <div class="artist__img center">
+            <img src="{{.Image}}" title="{{.Name}}">
+        </div>
     
+        <div class="artists-name">
+            <h1 class="center">
+                {{.Name}}
+            </h1>
+        </div>
+    
+        <div class="center">
+            <h2>Members</h2>
+                {{range .Members}}
+                <p class="text">{{.}}</p>  
+                {{end}}
+        </div>
+    
+        <div class="CreationDate center">
+            <h2>CreationDate</h2> <p class="text">{{.CreationDate}}</p>
+        </div>
+    
+        <div class="FirstAlbum center">
+            <h2>First Album</h2> <p class="text">{{.FirstAlbum}}</p>
+        </div>
+    
+        <div class="ConcertDates">
+            <h2>Locations and Concert Dates</h2>
+            
+            <table class="table center text">
+                    <tr>                    
+                        <td>Locations</td>
+                        <td>Dates</td>
+                    </tr>
+                    {{range $key, $value:= .DatesLocations}}
+                        <tr>          
+                            <td>           
+                                {{$key}}   
+                            </td>
+        
+                            <td>
+                                {{range $val:= $value}}           
+                                <div>{{$val}}</div> 
+                                {{end}}
+                            </td>
+                        </tr>
+                    {{end}}           
+            </table> 
+
+        </div>
+    </div>
+
 </body>
 </html>
